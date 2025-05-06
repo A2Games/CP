@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caça-Palavras - Jogo</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <div class="phase">🌟 <span id="phase">1</span></div>
+      <span>&nbsp;</span>
+      <span>💡 <small><span id="remainingWords">4</span></small></span>
+      <span>&nbsp;</span>
+      <div id="timeBar" class="bar"></div>
+      <span>&nbsp;</span>
+      <div id="livesContainer" class="lives"></div>
+      <span>&nbsp;</span>
+      <!-- Botão de menu: retorna ao menu.html -->
+      <span style="cursor:pointer" onclick="window.location.href='menu.html'">⏸️</span>
+    </div>
+
+    <div class="resources">
+      <span id="emojiHintBtn" style="cursor:pointer">💡<small id="emojiHintCount">5</small></span>
+      <span>&nbsp;</span>
+      <span id="textHintBtn" style="cursor:pointer">💬<small id="textHintCount">5</small></span>
+      <span>&nbsp;</span>
+      <span id="letterHintBtn" style="cursor:pointer">🔲<small id="letterHintCount">5</small></span>
+      <span>&nbsp;</span>
+      <span id="addTimeBtn" style="cursor:pointer">⏱️<small id="addTimeCount">5</small></span>
+      <span>&nbsp;</span>
+    </div>
+
+    <div class="separator">────────────────────────────────────────────────</div>
+    <div class="emojis"></div>
+    <div class="hint2"></div>
+    <div class="grid"></div>
+    <div class="separator">────────────────────────────────────────────────</div>
+    <div class="hint">💬 Pistas...</div>
+  </div>
+
+  <!-- Carrega scripts do jogo -->
+  <script src="js/dados.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/vidas.js"></script>
+  <script src="js/emojiHint.js"></script>
+  <script src="js/letterHint.js"></script>
+  <script src="js/textHint.js"></script>
+  <script src="js/addTimeHint.js"></script>
+  <script src="js/script.js"></script>
+
+</body>
+</html>

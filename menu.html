@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caça-Palavras - Menu Funcional</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+    .menu-content { max-width: 400px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .menu-content h1 { text-align: center; margin-bottom: 20px; }
+    ul#menu { list-style: none; padding: 0; }
+    ul#menu li { margin: 10px 0; }
+    ul#menu li a { text-decoration: none; display: block; padding: 10px; background: #007bff; color: #fff; border-radius: 4px; text-align: center; }
+    ul#menu li a:hover { background: #0056b3; }
+    #content section { display: none; margin-top: 20px; }
+    #content section.active { display: block; }
+    #content h2 { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="menu-content">
+    <h1>Menu Principal</h1>
+    <ul id="menu">
+      <li data-target="game"><a href="#">Iniciar Jogo</a></li>
+      <li data-target="instructions"><a href="#">Instruções</a></li>
+      <li data-target="settings"><a href="#">Configurações</a></li>
+      <li data-target="statistics"><a href="#">Estatísticas</a></li>
+    </ul>
+
+    <div id="content">
+      <section id="game">
+        <h2>Carregando...</h2>
+      </section>
+      <section id="instructions">
+        <h2>Instruções</h2>
+        <p>Neste jogo de caça-palavras, encontre todas as palavras escondidas no menor tempo possível.</p>
+        <ul>
+          <li>Use o mouse para selecionar as palavras.</li>
+          <li>As palavras podem estar na horizontal, vertical.</li>
+          <li>Você tem 3 minutos para encontrar todas as palavras.</li>
+        </ul>
+      </section>
+      <section id="settings">
+        <h2>Configurações</h2>
+        <p>Ajuste opções do jogo:</p>
+        <label><input type="checkbox" id="sound" checked /> Som ativado</label><br>
+        <label><input type="checkbox" id="darkMode" /> Modo escuro</label>
+      </section>
+      <section id="statistics">
+        <h2>Estatísticas</h2>
+        <p>Você ainda não jogou este jogo.</p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const menuItems = document.querySelectorAll('#menu li');
+    const contentSections = document.querySelectorAll('#content section');
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('data-target');
+
+        // Se for iniciar jogo, redireciona após breve animação
+        if (targetId === 'game') {
+          contentSections.forEach(sec => sec.classList.remove('active'));
+          document.getElementById('game').classList.add('active');
+          setTimeout(() => {
+            window.location.href = 'jogo.html';
+          }, 500);
+          return;
+        }
+
+        // Mostra a seção selecionada
+        contentSections.forEach(sec => sec.classList.remove('active'));
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    // Exemplo: salvar configurações no localStorage
+    const soundCheckbox = document.getElementById('sound');
+    const darkModeCheckbox = document.getElementById('darkMode');
+    
+    soundCheckbox.addEventListener('change', () => {
+      localStorage.setItem('soundEnabled', soundCheckbox.checked);
+    });
+    darkModeCheckbox.addEventListener('change', () => {
+      localStorage.setItem('darkMode', darkModeCheckbox.checked);
+      document.body.classList.toggle('dark', darkModeCheckbox.checked);
+    });
+
+    // Restaurar configurações ao carregar
+    window.addEventListener('DOMContentLoaded', () => {
+      const soundEnabled = localStorage.getItem('soundEnabled') === 'true';
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      soundCheckbox.checked = soundEnabled;
+      darkModeCheckbox.checked = darkMode;
+      if (darkMode) document.body.classList.add('dark');
+    });
+  </script>
+
+</body>
+</html>
