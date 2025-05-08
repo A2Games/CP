@@ -10,10 +10,10 @@ function textHint() {
     const hintDetail = window.currentWords[idx].hint2;
     const container = document.querySelector(window.DOM.hintsDetail);
     container.classList.add('active');
-    container.innerHTML += `💬 ${hintDetail}<br>`;
+    container.innerHTML = `${hintDetail}<br>`;
   } else if (window.hints.text === 0) {
-    alert(`Você já usou todas as ${window.MAX_HINTS.text} dicas de texto.`);
+    showAlertSingle(`Você já usou todas as ${window.MAX_HINTS.text} dicas de texto.`);
   } else {
-    alert('Sem mais dicas para esta fase.');
+    showAlertSingle('Sem mais dicas para esta fase.');
   }
 }

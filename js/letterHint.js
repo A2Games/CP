@@ -2,11 +2,11 @@
 function letterHint() {
   const totalWords = window.currentWords.length;
   if (window.hints.letter <= 0) {
-    alert(`Você já usou todas as ${window.MAX_HINTS.letter} dicas de letra.`);
+    showAlertSingle(`Você já usou todas as ${window.MAX_HINTS.letter} dicas de letra.`);
     return;
   }
   if (window.hints.letterUsed >= totalWords) {
-    alert(`Você já usou todas as ${totalWords} dicas de letra nesta fase.`);
+    showAlertSingle(`Você já usou todas as ${totalWords} dicas de letra nesta fase.`);
     return;
   }
 

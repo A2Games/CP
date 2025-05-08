@@ -1,5 +1,27 @@
 const wordDatabase = {
-  3: [
+2: [
+  { word: "DO", hint: "perform an action", emojis: ["✅","🎭","⚙️"], hint2: "executar uma ação" },
+  { word: "IF", hint: "introduce a condition", emojis: ["❓","🔄","🤔"], hint2: "introduzir uma condição" },
+  { word: "AS", hint: "compare or equal", emojis: ["🟰","🔗","📊"], hint2: "comparar ou igualar" },
+  { word: "AT", hint: "indicate location or time", emojis: ["📍","🕒","🏠"], hint2: "indicar localização ou horário" },
+  { word: "BY", hint: "indicate the agent", emojis: ["👤","➡️","📝"], hint2: "indicar o agente" },
+  { word: "HE", hint: "male pronoun", emojis: ["👨","🧑","🚹"], hint2: "pronome masculino" },
+  { word: "ME", hint: "first-person object pronoun", emojis: ["🙋","👤","🫵"], hint2: "pronome pessoal oblíquo" },
+  { word: "WE", hint: "first-person plural pronoun", emojis: ["👥","🤝","👫"], hint2: "pronome plural de primeira pessoa" },
+  { word: "US", hint: "object pronoun for we", emojis: ["👥","👉","🤲"], hint2: "pronome oblíquo para nós" },
+  { word: "ON", hint: "indicate position or state", emojis: ["🔛","📌","🛑"], hint2: "indicar posição ou estado" },
+  { word: "IN", hint: "inside something", emojis: ["📦","🏠","🔒"], hint2: "dentro de algo" },
+  { word: "TO", hint: "indicate direction or purpose", emojis: ["➡️","🎯","✉️"], hint2: "indicar direção ou propósito" },
+  { word: "OF", hint: "express belonging or origin", emojis: ["📖","🏷️","🌍"], hint2: "expressar pertencimento ou origem" },
+  { word: "OR", hint: "express choice", emojis: ["🔄","❔","⚖️"], hint2: "expressar escolha" },
+  { word: "AN", hint: "indefinite article before vowel", emojis: ["🔡","📰","📖"], hint2: "artigo indefinido antes de vogal" },
+  { word: "UP", hint: "toward a higher position", emojis: ["⬆️","🏔️","🚀"], hint2: "para uma posição mais alta" },
+  { word: "GO", hint: "move or proceed", emojis: ["🏃","🚗","➡️"], hint2: "mover-se ou prosseguir" },
+  { word: "NO", hint: "negative response or refusal", emojis: ["❌","🙅","🚫"], hint2: "resposta negativa ou recusa" },
+  { word: "SO", hint: "therefore or to such an extent", emojis: ["➡️","🤷","🔚"], hint2: "portanto ou em tal grau" },
+  { word: "BE", hint: "exist or live", emojis: ["🧬","🌱","⚒️"], hint2: "existir ou viver" }
+],  
+3: [
     { word: "SUN", hint: "bright object in sky", emojis: ["🌞","🔥","🌅"], hint2: "Objeto brilhante no céu" },
     { word: "CAT", hint: "small furry animal", emojis: ["🐾","😺","🛏️"], hint2: "Animal doméstico felino" },
     { word: "MAP", hint: "shows directions", emojis: ["🗺️","🧭","🧳"], hint2: "Representa rotas e caminhos" },

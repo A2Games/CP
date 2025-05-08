@@ -48,12 +48,12 @@ function loseLife() {
   updateLivesDisplay();
 
   if (lives > 0) {
-    alert(`Você perdeu uma vida! Continuando na fase ${phase}.`);
+    showAlertSingle(`Você perdeu uma vida! Continuando na fase ${phase}.`);
     // Reinicia a fase atual
     if (typeof loadPhase === 'function') loadPhase(phase);
   } else {
     // Game over: reinicia jogo completo automaticamente
-    alert('Game Over! Reiniciando...');
+    showAlertSingle('Game Over! Reiniciando...');
     resetGame();
   }
 }

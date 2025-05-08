@@ -3,12 +3,12 @@ function emojiHint() {
   const totalWords = window.currentWords.length;
   // Bloqueia se acabou o saldo global
   if (window.hints.emoji <= 0) {
-    alert(`Você já usou todas as ${window.MAX_HINTS.emoji} dicas de emoji.`);
+    showAlertSingle(`Você já usou todas as ${window.MAX_HINTS.emoji} dicas de emoji.`);
     return;
   }
   // Bloqueia se já usou todas as dicas desta fase
   if (window.hints.emojiUsed >= totalWords) {
-    alert(`Você já usou todas as ${totalWords} dicas de emoji nesta fase.`);
+    showAlertSingle(`Você já usou todas as ${totalWords} dicas de emoji nesta fase.`);
     return;
   }
 
@@ -21,5 +21,5 @@ function emojiHint() {
   const emojis = window.currentWords[idx % window.currentWords.length].emojis.join(' ');
   const container = document.querySelector(window.DOM.emojis);
   container.classList.add('active');
-  container.innerHTML += `✨ ${emojis}<br>`;
+  container.innerHTML = `✨ ${emojis}<br>`;
 }

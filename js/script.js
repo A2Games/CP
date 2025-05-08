@@ -12,7 +12,9 @@ let hints = {
 };
 let phase = 1;
 let selectedCells = [];
-let wordsFound = 0;
+
+// Índice da palavra ativa na fase
+let currentIndex = 0;
 
 // --- Helpers de seleção ---
 const $ = s => document.querySelector(s);
@@ -35,10 +37,23 @@ const DOM = {
   addTimeBtn    : '#addTimeBtn'
 };
 
+// Função de alerta único (showAlertSingle)
+function showAlertSingle(message) {
+  const container = document.querySelector('.alert-container');
+  if (!container) return;
+  container.innerHTML = '';
+  const alertDiv = document.createElement('div');
+  alertDiv.classList.add('alert');
+  alertDiv.textContent = message;
+  container.appendChild(alertDiv);
+  setTimeout(() => alertDiv.remove(), 6000);
+}
+
 // Disponibiliza globalmente para os módulos de dica
-window.hints     = hints;
-window.MAX_HINTS = MAX_HINTS;
-window.DOM       = DOM;
+window.hints         = hints;
+window.MAX_HINTS     = MAX_HINTS;
+window.DOM           = DOM;
+window.currentIndex  = currentIndex;
 
 // --- Atualiza contadores de dicas na UI e estado dos botões ---
 function updateHintCounters() {
@@ -60,31 +75,30 @@ function updateHintCounters() {
     .forEach(([selector, count]) => {
       const btn = $(selector);
       if (!btn) return;
-      if (count > 0) {
-        btn.disabled = false;
-        btn.style.opacity = '1';
-      } else {
-        btn.disabled = true;
-        btn.style.opacity = '0.5';
-      }
+      btn.disabled = count <= 0;
+      btn.style.opacity = count > 0 ? '1' : '0.5';
     });
 }
 window.updateHintCounters = updateHintCounters;
 
 // --- Configurações de fase e dificuldade ---
 function getGridSize(p) {
-  return Math.min(5 + Math.floor((p - 1) / 2), 20);
+  return Math.min(4 + Math.floor((p - 1) / 5), 15);
 }
 function getDifficultySettings(p) {
-  if (p < 10) return { count: 1, sets: [3] };
-  if (p < 20) return { count: 1, sets: [3, 4] };
-  if (p < 30) return { count: 2, sets: [4, 5] };
-  if (p < 40) return { count: 2, sets: [5, 6] };
-  if (p < 50) return { count: 3, sets: [6, 7] };
-  if (p < 60) return { count: 3, sets: [7, 8] };
-  if (p < 70) return { count: 4, sets: [8, 9] };
-  return { count: 4, sets: [9, 10] };
+  if (p < 10)  return { count: 1, sets: [2] };
+  if (p < 20)  return { count: 1, sets: [2, 3] };
+  if (p < 30)  return { count: 2, sets: [3, 4] };
+  if (p < 40)  return { count: 2, sets: [4, 5] };
+  if (p < 50)  return { count: 3, sets: [5, 6] };
+  if (p < 60)  return { count: 3, sets: [6, 7] };
+  if (p < 70)  return { count: 4, sets: [7, 8] };
+  if (p < 80)  return { count: 4, sets: [8, 9] };
+  if (p < 90)  return { count: 5, sets: [9, 10] };
+  if (p < 100) return { count: 5, sets: [10] };
+  return { count: 5, sets: [10] };
 }
+
 function shuffle(arr) {
   return arr.sort(() => Math.random() - 0.5);
 }
@@ -156,34 +170,62 @@ function attachSelection() {
     };
   });
 }
+
+// --- Ação ao encontrar palavra ---
 function onWordFound(word) {
-  alert(`Você encontrou a palavra ${word}!`);
-  wordsFound++;
-  $(DOM.remainingWords).innerText = window.currentWords.length - wordsFound;
+  showAlertSingle(`Você encontrou a palavra ${word}!`);
+  window.currentIndex++;
+  const remaining = window.currentWords.length - window.currentIndex;
+  $(DOM.remainingWords).innerText = remaining;
+
   selectedCells.forEach(c => c.classList.remove('selected'));
   selectedCells = [];
-  if (wordsFound >= window.currentWords.length) loadPhase(++phase);
+
+  if (window.currentIndex < window.currentWords.length) {
+    // resetar usos de dica para nova palavra
+    hints.emojiUsed  = 0;
+    hints.letterUsed = 0;
+    hints.textUsed   = 0;
+
+    updateHintCounters();
+
+    // Atualiza a dica da palavra ativa
+    const nextWord = window.currentWords[window.currentIndex];
+    $(DOM.hintsList).innerHTML = `💬 ${nextWord.hint}`;
+    $(DOM.emojis).classList.remove('active');
+    $(DOM.emojis).innerHTML = '';
+    $(DOM.hintsDetail).innerHTML = '';
+
+    // Renderiza apenas próxima palavra
+    renderGrid(generateGrid(getGridSize(phase), [nextWord]));
+    attachSelection();
+  } else {
+    loadPhase(++phase);
+  }
 }
 
 // --- Carregamento de fase ---
 function loadPhase(p) {
   const words = getWordsForPhase(p);
   window.currentWords = words;
-  // Zera apenas os usos POR FASE (mantém saldo global)
+  window.currentIndex = 0;
+
   hints.emojiUsed = 0;
   hints.letterUsed = 0;
   hints.textUsed   = 0;
-  wordsFound = 0;
 
   $(DOM.phaseDisplay).innerText     = p;
   $(DOM.remainingWords).innerText   = words.length;
-  $(DOM.hintsList).innerHTML        = words.map(w => `💬 ${w.hint}`).join('<br>');
+
+  // Renderiza apenas dica da primeira palavra
+  $(DOM.hintsList).innerHTML        = `💬 ${words[0].hint}`;
+
   $(DOM.emojis).classList.remove('active');
   $(DOM.emojis).innerHTML           = '';
   $(DOM.hintsDetail).innerHTML      = '';
 
   updateHintCounters();
-  renderGrid(generateGrid(getGridSize(p), words));
+  renderGrid(generateGrid(getGridSize(p), [words[0]]));
   attachSelection();
   createTimeBar();
   startTimerForPhase(p);

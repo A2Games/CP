@@ -21,7 +21,10 @@ html, body {
 }
 
 .top-bar {
+  position: fixed;    /* Fixa o elemento na tela */
+  top: 3%;           /* Distância do topo */
   width: 100%;
+  background-color: #fff;
   color: #007788;
   font-size: 1.3em;
   line-height: 2.5;
@@ -32,70 +35,11 @@ html, body {
   box-sizing: border-box;
 }
 
-.resources {
-  width: 100%;
-  color: #007788;
-  font-size: 1.8em;
-  line-height: 2.0;
-  letter-spacing: 0.5ch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 4px;
-  box-sizing: border-box;
-}
-
-.resources span small {
-  font-size: 0.5em;
-  vertical-align: super;
-}
-
-.separator {
-  width: 100%;
-  color: #a9b9c9;
-  margin: 4px 0;
-  text-align: center;
-  letter-spacing: 0.0ch;
-  line-height: 0.1;
-}
-
-.grid {
-  --grid-size: 5;
-  --cell-gap: 2px;
-  --cell-font: 1.2em;
-  display: grid;
-  width: 400px;
-  height: 400px;
-  grid-template-columns: repeat(var(--grid-size), 1fr);
-  grid-template-rows: repeat(var(--grid-size), 1fr);
-  gap: var(--cell-gap);
-  color: #007788;
-  font-size: var(--cell-font);
-  font-weight: bold;
-  font-family: monospace;
-  text-align: center;
-  align-items: center;
-  justify-items: center;
-}
-
-@media (max-width: 400px), (min-width: 0px) {
-  .grid {
-    font-size: calc(3em - 0.1em * var(--grid-size));
-  }
-}
-
-.hint {
-  width: 100%;
-  color: #2a662a;
-  font-size: 1.2em;
-  line-height: 1.8;
-  text-align: center;
-}
-
+/*---BARRA DE TEMPO---*/
 .bar {
   display: flex;
   gap: 1px;
-  height: 24px;
+  height: 20px;
   align-items: center;
   justify-content: center;
 }
@@ -122,29 +66,154 @@ html, body {
 }
 
 @keyframes pulse {
-  0% { transform: scaleY(1); background-color: orange; }
+  0% { transform: scaleY(1); background-color: red; }
   100% { transform: scaleY(1.4); background-color: red; }
 }
+/*--------------------*/
 
+.resources {
+  position: fixed;    /* Fixa o elemento na tela */
+  top: 10%;           /* Distância do topo */
+  width: 100%;
+  color: #007788;
+  font-size: 1.8em;
+  line-height: 2.0;
+  letter-spacing: 0.5ch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+.resources span small {
+  font-size: 0.5em;
+  vertical-align: super;
+}
+
+/* Contêiner fixo no topo da tela */
+.fixed-group {
+  position: fixed;
+  top: 23%;      /* Ajuste vertical para aproximar do topo */
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%); /* Ajuste para centralização exata */
+  text-align: center;
+  z-index: 1000;
+}
+
+/* Separadores */
+.separator1,
+.separator2 {
+  width: 100%;
+  color: #a9b9c9;
+  margin: 4px 0;
+  letter-spacing: 0;
+  line-height: 0.1;
+}
+
+/* Emojis */
+.emojis {
+  width: 100%;
+  font-size: 1.8em;
+  margin: 4px 0;
+  color: #444;
+  display: none;
+}
+.emojis.active {
+  display: block;
+}
+
+/* Hint segundo */
+.hint2 {
+  width: 100%;
+  color: #2a662a;
+  font-size: 1.2em;
+  line-height: 1.8;
+  margin: 4px 0;
+}
+
+/* Classe base para elementos fixos extras */
+.fixed-element {
+  position: fixed;
+  z-index: 1000;
+}
+
+.separator3 {
+  position: fixed;    /* Fixa o elemento na tela */
+  top: 86%;           /* Distância do topo */
+  width: 100%;
+  color: #a9b9c9;
+  margin: 4px 0;
+  text-align: center;
+  letter-spacing: 0.0ch;
+  line-height: 0.1;
+}
+
+/*---GRID---*/
+.grid {
+  position: fixed;    /* Fixa o elemento na tela */
+  top: 30%;           /* Distância do topo */
+  --grid-size: 4;
+  --cell-gap: 2px;
+  --cell-font: 1.2em;
+  display: grid;
+  width: 350px;
+  height: 350px;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  gap: var(--cell-gap);
+  color: #007788;
+  font-size: var(--cell-font);
+  font-weight: bold;
+  font-family: monospace;
+  text-align: center;
+  align-items: center;
+  justify-items: center;
+}
+@media (max-width: 350px), (min-width: 0px) {
+  .grid {
+    font-size: calc(4em - 0.18em * var(--grid-size));
+  }
+}
 .grid div:hover {
   background-color: rgba(255, 255, 0, 0.3);
   cursor: pointer;
   border-radius: 6px;
 }
-
-.emojis {
-  width: 100%;
-  font-size: 1.8em;
-  text-align: center;
-  color: #444;
-  margin-top: 1px;
-  display: none;
-}
-
-.emojis.active {
-  display: block;
-}
-
 .grid div.selected {
   background-color: rgba(255,255,0,0.5);
 }
+/*----------*/
+
+
+.hint {
+  position: fixed;    /* Fixa o elemento na tela */
+  top: 88%;           /* Distância do topo */
+  width: 100%;
+  color: #2a662a;
+  font-size: 1.2em;
+  line-height: 1.8;
+  text-align: center;
+}
+
+
+.alert {
+  position: fixed;    /* Fixa o elemento na tela */
+  top: 0%;
+  left: 50%;                  /* Posiciona 50% da viewport */
+  transform: translateX(-50%); /* Centraliza horizontalmente */
+  
+  max-width: 100%;
+  white-space: nowrap;         /* Impede quebra de linha */
+
+  padding: 2px 10px;
+  width: 100%;
+  background-color: orange;
+
+  color: #ffffff;
+  font-size: 0.8em;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: center;
+}
+
